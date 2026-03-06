@@ -1,17 +1,20 @@
 import PomodoroTimer from "../components/PomodoroTimer"
+import TaskManager from "../components/TaskManager"
 
 function Dashboard() {
-  return (
-    <div className="container-app py-10">
 
-      <h1 className="text-3xl font-bold mb-6">
-        Focus Dashboard
-      </h1>
+  return (
+
+    <div className="container-app py-10 grid md:grid-cols-2 gap-6">
 
       <PomodoroTimer />
 
+      <TaskManager />
+
     </div>
+
   )
+
 }
 
 export default Dashboard
