@@ -1,14 +1,14 @@
+import PomodoroTimer from "../components/PomodoroTimer"
+
 function Dashboard() {
   return (
     <div className="container-app py-10">
 
       <h1 className="text-3xl font-bold mb-6">
-        Dashboard
+        Focus Dashboard
       </h1>
 
-      <div className="card">
-        Pomodoro Timer will appear here
-      </div>
+      <PomodoroTimer />
 
     </div>
   )
