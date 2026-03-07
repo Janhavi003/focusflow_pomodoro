@@ -148,9 +148,9 @@ function PomodoroTimer() {
       </div>
 
       <audio
-        ref={audioRef}
-        src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg"
-      />
+  ref={audioRef}
+  src="/sounds/notification.mp3"
+/>
 
     </div>
 
