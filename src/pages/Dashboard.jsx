@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import PomodoroTimer from "../components/PomodoroTimer"
 import TaskManager from "../components/TaskManager"
 import DailyGoal from "../components/DailyGoal"
@@ -7,15 +8,35 @@ function Dashboard() {
 
   return (
 
-    <div className="container-app py-10 grid lg:grid-cols-2 gap-6">
+    <div className="container-app py-10">
 
-      <PomodoroTimer />
+      {/* Navigation */}
+      <div className="flex gap-4 mb-8">
 
-      <TaskManager />
+        <Link
+          to="/analytics"
+          className="btn-primary"
+        >
+          View Analytics
+        </Link>
 
-      <DailyGoal />
+        <Link
+          to="/history"
+          className="btn-secondary"
+        >
+          Session History
+        </Link>
 
-      <FocusSoundPlayer />
+      </div>
+
+      <div className="grid lg:grid-cols-2 gap-6">
+
+        <PomodoroTimer />
+        <TaskManager />
+        <DailyGoal />
+        <FocusSoundPlayer />
+
+      </div>
 
     </div>
 

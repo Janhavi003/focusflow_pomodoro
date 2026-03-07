@@ -5,6 +5,7 @@ import {
   getNextSession,
   formatTime
 } from "../utils/timerLogic"
+import { addSession } from "../utils/sessionStorage"
 
 function PomodoroTimer() {
 
@@ -47,16 +48,22 @@ function PomodoroTimer() {
 
     if (sessionType === "focus") {
 
-      const newCount = sessionsCompleted + 1
-      setSessionsCompleted(newCount)
+  addSession({
+    date: new Date().toISOString().split("T")[0],
+    task: "Focus Session",
+    duration: 25
+  })
 
-      const next = getNextSession(newCount)
+  const newCount = sessionsCompleted + 1
+  setSessionsCompleted(newCount)
 
-      setSessionType(next.type)
-      setTimeLeft(next.duration)
-      setTotalTime(next.duration)
+  const next = getNextSession(newCount)
 
-    } else {
+  setSessionType(next.type)
+  setTimeLeft(next.duration)
+  setTotalTime(next.duration)
+
+} else {
 
       const focus = getFocusSession()
 
