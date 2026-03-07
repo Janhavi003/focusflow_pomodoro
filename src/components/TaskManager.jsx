@@ -1,16 +1,11 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { getTasks, saveTasks } from "../utils/storage"
 
 function TaskManager() {
 
-  const [tasks, setTasks] = useState([])
+  const [tasks, setTasks] = useState(getTasks())
   const [newTask, setNewTask] = useState("")
   const [activeTask, setActiveTask] = useState(null)
-
-  useEffect(() => {
-    const stored = getTasks()
-    setTasks(stored)
-  }, [])
 
   const addTask = () => {
 
