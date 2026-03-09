@@ -9,29 +9,25 @@ function LandingPage() {
 
       {/* HERO SECTION */}
 
-      <section className="container-app py-24 text-center">
+      <section className="container-app py-28 text-center">
 
-        <motion.h1
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-5xl font-bold mb-6"
-        >
-          FocusFlow
-        </motion.h1>
+  <h1 className="text-6xl font-bold mb-6 bg-gradient-to-r from-indigo-500 to-purple-600 text-transparent bg-clip-text">
+    FocusFlow
+  </h1>
 
-        <p className="text-xl text-gray-500 mb-10 max-w-2xl mx-auto">
-          A modern Pomodoro productivity app designed to help you
-          focus deeply, track progress, and achieve your daily goals.
-        </p>
+  <p className="text-xl text-gray-500 max-w-2xl mx-auto mb-10">
+    A modern productivity system that helps you focus deeply,
+    manage tasks, and track your progress.
+  </p>
 
-        <Link
-          to="/app"
-          className="btn-primary text-lg"
-        >
-          Start Focus Session
-        </Link>
+  <Link
+    to="/app"
+    className="btn-primary text-lg"
+  >
+    Start Focus Session
+  </Link>
 
-      </section>
+</section>
 
       {/* FEATURES */}
 
