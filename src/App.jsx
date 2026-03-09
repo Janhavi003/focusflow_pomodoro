@@ -1,6 +1,6 @@
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, useLocation } from "react-router-dom"
 
-import Navbar from "./components/Navbar"
+import Sidebar from "./components/Sidebar"
 
 import LandingPage from "./pages/LandingPage"
 import Dashboard from "./pages/Dashboard"
@@ -9,23 +9,31 @@ import History from "./pages/History"
 
 function App() {
 
+  const location = useLocation()
+
+  const showSidebar = location.pathname !== "/"
+
   return (
 
-    <div className="min-h-screen">
+    <div className="flex">
 
-      <Navbar />
+      {showSidebar && <Sidebar />}
 
-      <Routes>
+      <main className="flex-1 min-h-screen bg-gray-50 dark:bg-gray-900">
 
-        <Route path="/" element={<LandingPage />} />
+        <Routes>
 
-        <Route path="/app" element={<Dashboard />} />
+          <Route path="/" element={<LandingPage />} />
 
-        <Route path="/analytics" element={<Analytics />} />
+          <Route path="/app" element={<Dashboard />} />
 
-        <Route path="/history" element={<History />} />
+          <Route path="/analytics" element={<Analytics />} />
 
-      </Routes>
+          <Route path="/history" element={<History />} />
+
+        </Routes>
+
+      </main>
 
     </div>
 

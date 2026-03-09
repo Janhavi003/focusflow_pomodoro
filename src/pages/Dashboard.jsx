@@ -7,17 +7,20 @@ function Dashboard() {
 
   return (
 
-    <div className="container-app py-10">
+    <div className="p-10">
 
       <h1 className="text-3xl font-bold mb-8">
-        Focus Dashboard
+        Dashboard
       </h1>
 
       <div className="grid lg:grid-cols-2 gap-6">
 
         <PomodoroTimer />
+
         <TaskManager />
+
         <DailyGoal />
+
         <FocusSoundPlayer />
 
       </div>
