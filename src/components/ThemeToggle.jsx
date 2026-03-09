@@ -37,7 +37,7 @@ function ThemeToggle() {
       onClick={toggleTheme}
       className="btn-secondary"
     >
-      {dark ? "Light Mode" : "Dark Mode"}
+      {dark ? "Light" : "Dark"}
     </button>
 
   )
