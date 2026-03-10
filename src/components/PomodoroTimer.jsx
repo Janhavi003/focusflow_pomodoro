@@ -1,11 +1,15 @@
 import { useEffect, useState, useRef } from "react"
 import ProgressCircle from "./ProgressCircle"
+
 import {
   getFocusSession,
   getNextSession,
   formatTime
 } from "../utils/timerLogic"
+
 import { addSession } from "../utils/sessionStorage"
+
+import { Play, Pause, RotateCcw, SkipForward } from "lucide-react"
 
 function PomodoroTimer() {
 
@@ -48,22 +52,22 @@ function PomodoroTimer() {
 
     if (sessionType === "focus") {
 
-  addSession({
-    date: new Date().toISOString().split("T")[0],
-    task: "Focus Session",
-    duration: 25
-  })
+      addSession({
+        date: new Date().toISOString().split("T")[0],
+        task: "Focus Session",
+        duration: 25
+      })
 
-  const newCount = sessionsCompleted + 1
-  setSessionsCompleted(newCount)
+      const newCount = sessionsCompleted + 1
+      setSessionsCompleted(newCount)
 
-  const next = getNextSession(newCount)
+      const next = getNextSession(newCount)
 
-  setSessionType(next.type)
-  setTimeLeft(next.duration)
-  setTotalTime(next.duration)
+      setSessionType(next.type)
+      setTimeLeft(next.duration)
+      setTotalTime(next.duration)
 
-} else {
+    } else {
 
       const focus = getFocusSession()
 
@@ -80,11 +84,14 @@ function PomodoroTimer() {
   const pauseTimer = () => setIsRunning(false)
 
   const resetTimer = () => {
+
     const focus = getFocusSession()
+
     setIsRunning(false)
     setSessionType("focus")
     setTimeLeft(focus.duration)
     setTotalTime(focus.duration)
+
   }
 
   const skipBreak = () => {
@@ -101,14 +108,16 @@ function PomodoroTimer() {
 
   return (
 
-    <div className="card flex flex-col items-center gap-6">
+    <div className="card flex flex-col items-center gap-6 hover:shadow-xl transition">
 
       <h2 className="text-xl font-semibold capitalize">
+
         {sessionType === "focus"
           ? "Focus Session"
           : sessionType === "shortBreak"
           ? "Short Break"
           : "Long Break"}
+
       </h2>
 
       <ProgressCircle
@@ -116,36 +125,42 @@ function PomodoroTimer() {
         time={formatTime(timeLeft)}
       />
 
-      <div className="flex gap-4">
+      <div className="flex gap-4 flex-wrap justify-center">
 
         <button
           onClick={startTimer}
-          className="btn-primary"
+          className="btn-primary flex items-center gap-2"
         >
+          <Play size={16} />
           Start
         </button>
 
         <button
           onClick={pauseTimer}
-          className="btn-secondary"
+          className="btn-secondary flex items-center gap-2"
         >
+          <Pause size={16} />
           Pause
         </button>
 
         <button
           onClick={resetTimer}
-          className="btn-secondary"
+          className="btn-secondary flex items-center gap-2"
         >
+          <RotateCcw size={16} />
           Reset
         </button>
 
         {sessionType !== "focus" && (
+
           <button
             onClick={skipBreak}
-            className="btn-secondary"
+            className="btn-secondary flex items-center gap-2"
           >
+            <SkipForward size={16} />
             Skip
           </button>
+
         )}
 
       </div>
@@ -155,9 +170,9 @@ function PomodoroTimer() {
       </div>
 
       <audio
-  ref={audioRef}
-  src="/sounds/notification.mp3"
-/>
+        ref={audioRef}
+        src="/sounds/notification.mp3"
+      />
 
     </div>
 

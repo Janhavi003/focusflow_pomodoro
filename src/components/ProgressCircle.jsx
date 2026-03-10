@@ -1,11 +1,13 @@
-import { motion as Motion } from "framer-motion"
+import { motion } from "framer-motion"
 
 function ProgressCircle({ progress, time }) {
+
   const radius = 110
   const circumference = 2 * Math.PI * radius
   const offset = circumference - progress * circumference
 
   return (
+
     <div className="relative w-64 h-64 flex items-center justify-center">
 
       <svg className="absolute w-full h-full -rotate-90">
@@ -19,11 +21,11 @@ function ProgressCircle({ progress, time }) {
           fill="transparent"
         />
 
-        <Motion.circle
+        <motion.circle
           cx="128"
           cy="128"
           r={radius}
-          stroke="#6366f1"
+          stroke="url(#gradient)"
           strokeWidth="10"
           fill="transparent"
           strokeDasharray={circumference}
@@ -34,6 +36,17 @@ function ProgressCircle({ progress, time }) {
           transition={{ duration: 0.5 }}
         />
 
+        <defs>
+
+          <linearGradient id="gradient">
+
+            <stop offset="0%" stopColor="#6366f1" />
+            <stop offset="100%" stopColor="#8b5cf6" />
+
+          </linearGradient>
+
+        </defs>
+
       </svg>
 
       <div className="text-4xl font-bold">
@@ -41,7 +54,9 @@ function ProgressCircle({ progress, time }) {
       </div>
 
     </div>
+
   )
+
 }
 
 export default ProgressCircle
