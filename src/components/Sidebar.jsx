@@ -20,17 +20,19 @@ function Sidebar() {
 
     <aside className="w-64 bg-white dark:bg-gray-800 border-r dark:border-gray-700 min-h-screen">
 
-      <div className="p-6 text-xl font-bold text-primary flex items-center gap-2">
+      <Link
+        to="/"
+        className="p-6 text-xl font-bold text-primary flex items-center gap-2"
+      >
         <Timer size={22} />
         FocusFlow
-      </div>
+      </Link>
 
       <nav className="flex flex-col gap-2 px-4">
 
         {menu.map((item) => {
 
           const Icon = item.icon
-
           const active = location.pathname === item.path
 
           return (

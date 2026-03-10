@@ -8,6 +8,7 @@ import {
 } from "../utils/timerLogic"
 
 import { addSession } from "../utils/sessionStorage"
+import { useTimer } from "../context/TimerContext"
 
 import { Play, Pause, RotateCcw, SkipForward } from "lucide-react"
 
@@ -15,13 +16,43 @@ function PomodoroTimer() {
 
   const focusSession = getFocusSession()
 
-  const [timeLeft, setTimeLeft] = useState(focusSession.duration)
+  const initializeState = () => {
+    const saved = localStorage.getItem("focusflow_timer")
+    if (saved) {
+      const data = JSON.parse(saved)
+      return data
+    }
+    return {
+      timeLeft: focusSession.duration,
+      sessionType: "focus",
+      sessionsCompleted: 0
+    }
+  }
+
+  const initialState = initializeState()
+  const { timeLeft, setTimeLeft, isRunning, setIsRunning } = useTimer()
   const [totalTime, setTotalTime] = useState(focusSession.duration)
-  const [isRunning, setIsRunning] = useState(false)
-  const [sessionType, setSessionType] = useState("focus")
-  const [sessionsCompleted, setSessionsCompleted] = useState(0)
+  const [sessionType, setSessionType] = useState(initialState.sessionType)
+  const [sessionsCompleted, setSessionsCompleted] = useState(initialState.sessionsCompleted)
 
   const audioRef = useRef(null)
+
+  /* Save timer state */
+
+  useEffect(() => {
+
+    localStorage.setItem(
+      "focusflow_timer",
+      JSON.stringify({
+        timeLeft,
+        sessionType,
+        sessionsCompleted
+      })
+    )
+
+  }, [timeLeft, sessionType, sessionsCompleted])
+
+  /* Timer logic */
 
   useEffect(() => {
 
@@ -32,7 +63,9 @@ function PomodoroTimer() {
       setTimeLeft((prev) => {
 
         if (prev <= 1) {
+
           handleSessionComplete()
+
           return 0
         }
 
@@ -59,6 +92,7 @@ function PomodoroTimer() {
       })
 
       const newCount = sessionsCompleted + 1
+
       setSessionsCompleted(newCount)
 
       const next = getNextSession(newCount)

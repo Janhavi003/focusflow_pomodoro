@@ -6,6 +6,7 @@ import LandingPage from "./pages/LandingPage"
 import Dashboard from "./pages/Dashboard"
 import Analytics from "./pages/Analytics"
 import History from "./pages/History"
+import FloatingTimer from "./components/FloatingTimer"
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
         </Routes>
 
       </main>
+      <FloatingTimer />
 
     </div>
 

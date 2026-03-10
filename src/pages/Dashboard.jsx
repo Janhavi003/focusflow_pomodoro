@@ -13,7 +13,9 @@ function Dashboard() {
         Dashboard
       </h1>
 
-      <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-6">
+      {/* Top row */}
+
+      <div className="grid lg:grid-cols-3 gap-6 mb-6">
 
         <PomodoroTimer />
 
@@ -21,7 +23,15 @@ function Dashboard() {
 
         <DailyGoal />
 
-        <FocusSoundPlayer />
+      </div>
+
+      {/* Bottom row */}
+
+      <div className="grid lg:grid-cols-3 gap-6">
+
+        <div className="lg:col-span-3">
+          <FocusSoundPlayer />
+        </div>
 
       </div>
 
