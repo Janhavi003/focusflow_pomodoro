@@ -19,13 +19,13 @@ export const TimerProvider = ({ children }) => {
 
     const timer = setInterval(() => {
 
-      setTimeLeft((prev) => {
+      setTimeLeft(prev => {
 
         if (prev <= 1) {
 
           handleSessionComplete()
 
-          return prev
+          return 0
         }
 
         return prev - 1
@@ -47,14 +47,12 @@ export const TimerProvider = ({ children }) => {
       const newCount = sessionsCompleted + 1
       setSessionsCompleted(newCount)
 
-      // store session for analytics
       addSession({
         date: new Date().toISOString().split("T")[0],
         task: "Focus Session",
         duration: 25
       })
 
-      // switch to break
       setSessionType("break")
       setTimeLeft(300)
 
@@ -62,7 +60,6 @@ export const TimerProvider = ({ children }) => {
 
       breakAlarm.current?.play()
 
-      // switch back to focus
       setSessionType("focus")
       setTimeLeft(1500)
 
@@ -77,7 +74,6 @@ export const TimerProvider = ({ children }) => {
         timeLeft,
         setTimeLeft,
         sessionType,
-        setSessionType,
         isRunning,
         setIsRunning,
         sessionsCompleted
