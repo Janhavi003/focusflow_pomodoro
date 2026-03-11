@@ -1,4 +1,5 @@
-import { useMemo } from "react"
+import { useEffect, useState } from "react"
+
 import {
   BarChart,
   Bar,
@@ -15,12 +16,16 @@ import { getSessionHistory } from "../utils/sessionStorage"
 
 function Analytics() {
 
-  const dailyData = useMemo(() => {
+  const [dailyData, setDailyData] = useState([])
+  const [weeklyData, setWeeklyData] = useState([])
+
+  const generateAnalytics = () => {
+
     const history = getSessionHistory()
 
     const dailyMap = {}
 
-    history.forEach(session => {
+    history.forEach((session) => {
 
       if (!dailyMap[session.date]) {
         dailyMap[session.date] = 0
@@ -30,23 +35,43 @@ function Analytics() {
 
     })
 
-    return Object.keys(dailyMap).map(date => ({
+    const dailyArray = Object.keys(dailyMap).map((date) => ({
       date,
       sessions: dailyMap[date]
     }))
-  }, [])
 
-  const weeklyData = useMemo(() => dailyData.slice(-7), [dailyData])
+    setDailyData(dailyArray)
+
+    setWeeklyData(dailyArray.slice(-7))
+
+  }
+
+  useEffect(() => {
+
+    generateAnalytics()
+
+    const handleStorageUpdate = () => {
+      generateAnalytics()
+    }
+
+    window.addEventListener("storage", handleStorageUpdate)
+
+    return () =>
+      window.removeEventListener("storage", handleStorageUpdate)
+
+  }, [])
 
   return (
 
-    <div className="container-app py-10">
+    <div className="p-10">
 
       <h1 className="text-3xl font-bold mb-8">
         Productivity Analytics
       </h1>
 
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid lg:grid-cols-2 gap-6">
+
+        {/* Daily Sessions Chart */}
 
         <div className="card">
 
@@ -69,6 +94,7 @@ function Analytics() {
               <Bar
                 dataKey="sessions"
                 fill="#6366f1"
+                radius={[6, 6, 0, 0]}
               />
 
             </BarChart>
@@ -76,6 +102,8 @@ function Analytics() {
           </ResponsiveContainer>
 
         </div>
+
+        {/* Weekly Productivity */}
 
         <div className="card">
 
@@ -100,6 +128,7 @@ function Analytics() {
                 dataKey="sessions"
                 stroke="#22c55e"
                 strokeWidth={3}
+                dot={{ r: 4 }}
               />
 
             </LineChart>
